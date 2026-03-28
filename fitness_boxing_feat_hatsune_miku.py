@@ -31,23 +31,23 @@ class FitnessBoxingHatsuneMikuGame(Game):
     def game_objective_templates(self) -> List[GameObjectiveTemplate]:
         return [
         GameObjectiveTemplate(
-            label="Play SONG on DIFFICULTY difficulty"
+            label="Play SONG on DIFFICULTY difficulty",
             data={
                 "SONG": (self.miku_exercise_list, 1),
                 "DIFFICULTY": (self.difficulties_list, 1),
             }
             is_time_consuming=False,
             is_difficult=False,
-            weight=3
+            weight=3,
         ),
         GameObjectiveTemplate(
-            label="Play any song on DIFFICULTY difficulty"
+            label="Play any song on DIFFICULTY difficulty",
             data={
                 "DIFFICULTY": (self.difficulties_list, 1),
             }
             is_time_consuming=False,
-            is_diffuclt=False
-            weight=1
+            is_diffuclt=False,
+            weight=1,
         ),
     ]
 
