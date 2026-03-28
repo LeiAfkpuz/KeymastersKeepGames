@@ -17,9 +17,9 @@ class FitnessBoxingHatsuneMikuArchipelagoOptions:
 
 class FitnessBoxingHatsuneMikuGame(Game):
     name = "Fitness Boxing feat. HATSUNE MIKU"
-    platforms = KeymastersKeepGamePlatforms.SW
+    platform = KeymastersKeepGamePlatforms.SW
 
-    is_adult_only_or_unreated = False
+    is_adult_only_or_unrated = False
 
     options_cls = FitnessBoxingHatsuneMikuArchipelagoOptions
 
@@ -33,7 +33,7 @@ class FitnessBoxingHatsuneMikuGame(Game):
             data={
                 "SONG": (self.miku_exercise_list, 1),
                 "DIFFICULTY": (self.difficulties_list, 1),
-            }
+            },
             is_time_consuming=False,
             is_difficult=False,
             weight=3,
@@ -42,9 +42,9 @@ class FitnessBoxingHatsuneMikuGame(Game):
             label="Play any song on DIFFICULTY difficulty",
             data={
                 "DIFFICULTY": (self.difficulties_list, 1),
-            }
+            },
             is_time_consuming=False,
-            is_diffuclt=False,
+            is_difficult=False,
             weight=1,
         ),
     ]
