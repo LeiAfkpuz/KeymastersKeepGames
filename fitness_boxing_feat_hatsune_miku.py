@@ -26,7 +26,7 @@ class FitnessBoxingHatsuneMikuGame(Game):
     options_cls = FitnessBoxingHatsuneMikuArchipelagoOptions
 
     def game_objective_templates(self) -> List[GameObjectiveTemplate]:
-    return [
+        return [
         GameObjectiveTemplate(
             label="Play SONG on DIFFICULTY difficulty"
             data={
@@ -37,11 +37,20 @@ class FitnessBoxingHatsuneMikuGame(Game):
             is_difficult=False,
             weight=3
         ),
+        GameObjectiveTemplate(
+            label="Play any song on DIFFICULTY difficulty"
+            data={
+                "DIFFICULTY": (self.difficulties_list, 1),
+            }
+            is_time_consuming=False,
+            is_diffuclt=False
+            weight=1
+        ),
     ]
 
     @staticmethod
     def miku_exercise_list() -> List[str]:
-    return [
+        return [
         "I Will Make You Miku Miku(Miku Miku ni Shiteageru)",
         "Melt",
         "THE END OF HATSUNE MIKU",
@@ -77,7 +86,7 @@ class FitnessBoxingHatsuneMikuGame(Game):
 
     @staticmethod
     def difficulties_list() -> List[str]:
-    return [
+        return [
         "Lightweight",
         "Middlweight",
         "Heavyweight",
