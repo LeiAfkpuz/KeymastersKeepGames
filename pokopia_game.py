@@ -88,6 +88,7 @@ class PokopiaGame(Game):
             },
             is_time_consuming=True,
             is_difficult=False,
+            weight=2,
         ),
         GameObjectiveTemplate(
             label="Create HABITAT_COUNT different habitats",
@@ -96,6 +97,7 @@ class PokopiaGame(Game):
             },
             is_time_consuming=False,
             is_difficult=False,
+            weight=2,
         ),
         GameObjectiveTemplate(
             label="Find TREASURE_COUNT sparkling water/dig spots",
@@ -104,6 +106,7 @@ class PokopiaGame(Game):
             },
             is_time_consuming=True,
             is_difficult=False,
+            weight=2,
         ),
         ])
         if self.include_daily_challenges:
