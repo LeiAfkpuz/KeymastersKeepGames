@@ -53,6 +53,57 @@ class PokopiaGame(Game):
             is_difficult=False,
             weight=2,
         ),
+        GameObjectiveTemplate(
+            label="Take a photo with Pokemon who have the following abilities; ABILITIES",
+            data={
+                "ABILITIES": (self.abilities_list, 3),
+            },
+            is_time_consuming=False,
+            is_difficult=False,
+            weight=3,
+        ),
+        GameObjectiveTemplate(
+            label="Take a photo with a Pokemon who has the ABILITIES ability",
+            data={
+                "ABILITIES": (self.abilities_list, 1),
+            },
+            is_time_consuming=False,
+            is_difficult=False,
+            weight=2,
+        ),
+        GameObjectiveTemplate(
+            label="Appriase APPRAISE_COUNT lost relics",
+            data={
+                "APPRAISE_COUNT": (self.appraise_count, 1),
+            },
+            is_time_consuming=False,
+            is_difficult=False,
+            weight=2,
+        ),
+        GameObjectiveTemplate(
+            label="Find FEATHER_COUNT feathers",
+            data={
+                "FEATHER_COUNT": (self.appraise_count, 1),
+            },
+            is_time_consuming=True,
+            is_difficult=False,
+        ),
+        GameObjectiveTemplate(
+            label="Create HABITAT_COUNT different habitats",
+            data={
+                "HABITAT_COUNT": (self.habitat_count, 1),
+            },
+            is_time_consuming=False,
+            is_difficult=False,
+        ),
+        GameObjectiveTemplate(
+            label="Find TREASURE_COUNT sparkling water/dig spots",
+            data={
+                "TREASURE_COUNT": (self.treasure_count, 1),
+            },
+            is_time_consuming=True,
+            is_difficult=False,
+        ),
         ])
         if self.include_daily_challenges:
             game_objective_templates.extend([
@@ -143,6 +194,7 @@ class PokopiaGame(Game):
         "nonburnable garbage",
         "wastepaper",
         "cave mushrooms",
+        "honey",
     ]
 
     @staticmethod
@@ -152,6 +204,11 @@ class PokopiaGame(Game):
         "copper ingot",
         "lumber",
         "pokemetal",
+        "brick",
+        "glass",
+        "concreate",
+        "paper",
+        "tinkagear",
     ]
 
     @staticmethod
@@ -202,6 +259,42 @@ class PokopiaGame(Game):
             "Bitter Hamburger Steak",
             "Vibrant Hamburger Steak",
         ]
+
+    @staticmethod
+    def abilities_list() -> List[str]:
+        return[
+            "Appraise",
+            "Build",
+            "Bulldoze",
+            "Burn",
+            "Chop",
+            "Collect",
+            "Crush",
+            "DJ",
+            "Dream Island",
+            "Eat",
+            "Engineer",
+            "Explode",
+            "Fly",
+            "Gather",
+            "Gather Honey",
+            "Grow",
+            "Generate",
+            "Hype",
+            "Illuminiate",
+            "Litter",
+            "Paint",
+            "Party",
+            "Rarify",
+            "Recycle",
+            "Search",
+            "Storage",
+            "Teleport",
+            "Trade",
+            "Transform",
+            "Water",
+            "Yawn",
+        ]
     
     @staticmethod
     def dailies_count() -> range:
@@ -218,6 +311,18 @@ class PokopiaGame(Game):
     @staticmethod
     def crafting_count() -> range:
         return range(1,50,5)
+
+    @staticmethod
+    def appraise_count() -> range:
+        return range(1,5,1)
+
+    @staticmethod
+    def habitat_count() -> range:
+        return range(1,8,2)
+
+    @staticmethod
+    def treasure_count() -> range:
+        return range(1,20,4)
     
 class PokopiaIncludeCooking(Toggle):
     """
