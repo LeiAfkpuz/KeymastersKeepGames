@@ -18,6 +18,7 @@ class PokopiaArchipelagoOptions:
     include_minigames: PokopiaIncludeMiniGames
     include_daily_challenges: PokopiaIncludeDailies
     include_crafting: PokopiaIncludeCrafting
+    abilities_included: AbilitiesIncludedPhotos
 
     
 
@@ -72,7 +73,7 @@ class PokopiaGame(Game):
             weight=2,
         ),
         GameObjectiveTemplate(
-            label="Appriase APPRAISE_COUNT lost relics",
+            label="Appraise APPRAISE_COUNT lost relics",
             data={
                 "APPRAISE_COUNT": (self.appraise_count, 1),
             },
@@ -173,6 +174,22 @@ class PokopiaGame(Game):
     def include_minigames(self) -> bool:
         return self.archipelago_options.include_minigames.value
 
+    @property
+    def abilities_included(self) -> List[str]:
+        return sorted(self.archipelago_options.abilities_included.value)
+
+    @property
+    def common_abilities(self) -> bool:
+        return "Common" in self.abilities_included
+
+    @property
+    def story_abilities(self) -> bool:
+        return "Story" in self.abilities_included
+
+    @property
+    def rare_abilities(self) -> bool:
+        return "Rare" in self.abilities_included
+
     @staticmethod
     def gather_list() -> List[str]:
         return [
@@ -206,7 +223,7 @@ class PokopiaGame(Game):
         "pokemetal",
         "brick",
         "glass",
-        "concreate",
+        "concrete",
         "paper",
         "tinkagear",
     ]
@@ -261,40 +278,62 @@ class PokopiaGame(Game):
         ]
 
     @staticmethod
-    def abilities_list() -> List[str]:
+    def common_abilities_list() -> List[str]:
         return[
             "Appraise",
             "Build",
             "Bulldoze",
             "Burn",
             "Chop",
-            "Collect",
             "Crush",
-            "DJ",
             "Dream Island",
-            "Eat",
-            "Engineer",
-            "Explode",
             "Fly",
             "Gather",
-            "Gather Honey",
             "Grow",
             "Generate",
             "Hype",
-            "Illuminiate",
             "Litter",
-            "Paint",
-            "Party",
-            "Rarify",
             "Recycle",
             "Search",
-            "Storage",
             "Teleport",
             "Trade",
             "Transform",
             "Water",
-            "Yawn",
         ]
+
+    @staticmethod
+    def story_abilities_list() -> List[str]:
+        return[
+            "DJ",
+            "Eat",
+            "Engineer",
+            "Illuminate",
+            "Paint",
+            "Party",
+            "Yawn",
+            "Collect",
+        ]
+
+    @staticmethod
+    def rare_abilities_list() -> List[str]:
+        return[
+            "Gather Honey",
+            "Rarify",
+            "Explode",
+            "Storage",
+        ]
+
+    def abilities_list(self) -> List[str]:
+        abilities_list: List[str] = []
+
+        if self.common_abilities:
+            abilities_list.extend(self.common_abilities_list())
+        if self.rare_abilities:
+            abilities_list.extend(self.rare_abilities_list())
+        if self.story_abilities:
+            abilities_list.extend(self.story_abilities_list())
+        return sorted(set(abilities_list))
+        
     
     @staticmethod
     def dailies_count() -> range:
@@ -351,3 +390,23 @@ class PokopiaIncludeDailies(Toggle):
     """
 
     display_name = "Include Daily Challenges"
+
+class AbilitiesIncludedPhotos(OptionSet):
+    """
+    What ability sets would you like to include for the Photo challenges?
+    Common - Abilities that appear more often across Pokemon
+    Story - Abilities that are only found on Story-given Pokemon(Collect(Gimmighoul) has been included in this list)
+    Rare - Abilities that only appear on 1-2 Pokemon that are not provided by story(Rarify(Porygon Z) for example)
+    """
+    
+    display_name = "Included Ability Lists"
+    valid_keys = [
+        "Common",
+        "Story",
+        "Rare",
+    ]
+
+    default = [
+        "Common",
+        "Story",
+    ]
