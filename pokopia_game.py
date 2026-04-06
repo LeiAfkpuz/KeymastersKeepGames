@@ -364,7 +364,7 @@ class PokopiaGame(Game):
 
     @staticmethod
     def treasure_count() -> range:
-        return range(1,7,2)
+        return range(1,5,1)
     
 class PokopiaIncludeCooking(Toggle):
     """
